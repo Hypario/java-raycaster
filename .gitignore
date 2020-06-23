@@ -5,6 +5,7 @@
 *.test
 *.png
 *.scene
+!exemple.png
 
 ### graddle ###
 .gradle
