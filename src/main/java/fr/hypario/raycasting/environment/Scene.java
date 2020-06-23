@@ -26,6 +26,9 @@ public class Scene {
 
     private final Camera camera;
 
+    // debugging
+    private boolean displayNormals = false;
+
     public Scene() {
         size = new Integer[2];
         this.camera = new Camera();
@@ -197,6 +200,7 @@ public class Scene {
         return intersectedObject;
     }
 
+    // getters
     public List<BasicObject> getProps() {
         return this.props;
     }
@@ -235,5 +239,12 @@ public class Scene {
 
     public boolean isAntialiasingEnabled() {
         return antialiasing;
+    }
+
+    // debugging tools
+    public boolean displayNormals() { return this.displayNormals; }
+
+    public void normals(String args) {
+        this.displayNormals = Boolean.parseBoolean(args);
     }
 }

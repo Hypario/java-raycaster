@@ -86,7 +86,10 @@ public class ImageGenerator {
                 pixelColor = pixelColor.add(this.rayColor(ray, intersectedObject, 0));
             }
         }
-        return pixelColor;
+        if (pixelColor.equals(0 ,0, 0)) {
+            return this.background(x, y).cap();
+        }
+        return pixelColor.cap();
     }
 
     private Color rayColor(Ray ray, IntersectedObject intersectedObject, int depth) {
@@ -95,6 +98,11 @@ public class ImageGenerator {
         Point3D p = ray.at(intersectedObject.t);
         Vector3D direction = ray.getDirection();
         BasicObject object = intersectedObject.object;
+
+        if (this.world.displayNormals()) {
+            Vector3D n = object.getNormal();
+            return new Color(n.getX(), n.getY(), n.getZ()).add(new Color(1, 1, 1)).mul(0.5);
+        }
 
         Color sum = new Color();
 
@@ -119,7 +127,13 @@ public class ImageGenerator {
                 result = result.add(object.getSpecular().times(cp)); // c = c + specular * c'
             }
         }
-        return result.cap();
+        return result;
+    }
+
+    private Color background(int x, int y) {
+        Vector3D unit_direction = this.calculateDVector(new Vector3D(x, y, 1), this.pixelDimension, this.system).normalize();
+        double t = 0.5 * (unit_direction.getY() + 1.0);
+        return new Color(1.0, 1.0, 1.0).mul(1.0 - t).add(new Color(0.5, 0.7, 1.0).mul(t));
     }
 
     /**

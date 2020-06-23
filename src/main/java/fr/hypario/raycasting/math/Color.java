@@ -34,9 +34,9 @@ public class Color extends Triplet {
         double r;
         double g;
         double b;
-        r = this.getX() > 1 ? 1 : this.getX();
-        g = this.getY() > 1 ? 1 : this.getY();
-        b = this.getZ() > 1 ? 1 : this.getZ();
+        r = this.getX() >= 1 ? 1 : this.getX() <= 0 ? 0 : this.getX();
+        g = this.getY() >= 1 ? 1 : this.getY() <= 0 ? 0 : this.getY();
+        b = this.getZ() >= 1 ? 1 : this.getZ() <= 0 ? 0 : this.getZ();
         return new Color(r, g, b);
     }
 }
