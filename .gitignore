@@ -1,0 +1,15 @@
+### idea ###
+.idea
+
+### project specific ###
+*.test
+*.png
+*.scene
+
+### graddle ###
+.gradle
+
+### Gradle Patch ###
+**/build/
+*.jar
+!gradle-wrapper.jar
