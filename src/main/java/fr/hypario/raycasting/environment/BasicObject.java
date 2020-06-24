@@ -6,7 +6,7 @@ import fr.hypario.raycasting.math.Vector3D;
 
 public abstract class BasicObject {
 
-    protected Color diffuse; // color of an object when illuminated by ambient light
+    protected Color diffuse; // color of an object when illuminated by light
     protected Color specular; // color of the light from a shiny surface
     protected int shininess; // how much it shines
 

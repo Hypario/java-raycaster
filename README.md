@@ -23,7 +23,7 @@ output exemple.png
 camera 0 0 0 0 0 -1 0 1 0 45
 
 # activer ou non les ombres
-shadow true
+shadows true
 
 # la lumière ambient
 ambient .1 .1 .1

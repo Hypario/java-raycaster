@@ -13,7 +13,7 @@ public class PointLight extends Light {
 
     @Override
     protected boolean isHidden(Scene world, Point3D p) {
-        if (world.isShadowEnabled()) {
+        if (world.areShadowsEnabled()) {
             double distance = this.position.sub(p).length();
             Vector3D lightDir = this.getLightDir(p);
             IntersectedObject intersected = world.intersect(new Ray(p, lightDir), false);

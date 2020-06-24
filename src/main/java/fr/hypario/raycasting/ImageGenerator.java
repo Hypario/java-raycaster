@@ -99,9 +99,12 @@ public class ImageGenerator {
         Vector3D direction = ray.getDirection();
         BasicObject object = intersectedObject.object;
 
+        // debugging tool
         if (this.world.displayNormals()) {
             Vector3D n = object.getNormal();
             return new Color(n.getX(), n.getY(), n.getZ()).add(new Color(1, 1, 1)).mul(0.5);
+        } else if (this.world.areLightsEnabled()) {
+            return object.getDiffuse();
         }
 
         Color sum = new Color();

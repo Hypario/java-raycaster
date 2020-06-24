@@ -56,7 +56,7 @@ public abstract class Light {
     }
 
     protected boolean isHidden(Scene world, Point3D p) {
-        if (world.isShadowEnabled()) {
+        if (world.areShadowsEnabled()) {
             IntersectedObject intersected = world.intersect(new Ray(p, this.getLightDir(p)), false);
             return intersected.hasIntersected;
         }

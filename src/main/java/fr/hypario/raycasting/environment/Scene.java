@@ -12,38 +12,30 @@ public class Scene {
     private String output;
     private final Integer[] size;
     private Integer maxverts;
-    private Color ambient;
-    private Color specular;
-    private Color diffuse;
-    private Integer shininess;
+    private Color ambient = new Color();
+    private Color specular = new Color();
+    private Color diffuse = new Color();
+    private Integer shininess = 1;
 
     private final List<Light> lights;
     private final List<BasicObject> props;
     private final List<Point3D> vertexes;
-    private boolean shadow;
-    private boolean antialiasing;
+    private boolean shadows = false;
+    private boolean antialiasing = false;
     private int maxDepth = 1;
 
-    private final Camera camera;
+    private final Camera camera = new Camera();
 
     // debugging
     private boolean displayNormals = false;
+    private boolean displayLights = false;
 
     public Scene() {
-        size = new Integer[2];
-        this.camera = new Camera();
+        this.size = new Integer[2];
 
         this.lights = new ArrayList<>();
         this.props = new ArrayList<>();
         this.vertexes = new ArrayList<>();
-
-        this.ambient = new Color();
-        this.specular = new Color();
-        this.diffuse = new Color();
-        this.shininess = 1;
-
-        this.shadow = false;
-        this.antialiasing = false;
     }
 
     // output of scene
@@ -161,8 +153,8 @@ public class Scene {
         this.props.add(new Plane(q, n, this.diffuse, this.specular, this.shininess));
     }
 
-    public void shadow(String args) {
-        this.shadow = Boolean.parseBoolean(args);
+    public void shadows(String args) {
+        this.shadows = Boolean.parseBoolean(args);
     }
 
     public void antialiasing(String args) {
@@ -233,8 +225,8 @@ public class Scene {
         return this.maxDepth;
     }
 
-    public boolean isShadowEnabled() {
-        return shadow;
+    public boolean areShadowsEnabled() {
+        return shadows;
     }
 
     public boolean isAntialiasingEnabled() {
@@ -246,5 +238,13 @@ public class Scene {
 
     public void normals(String args) {
         this.displayNormals = Boolean.parseBoolean(args);
+    }
+
+    public void lights(String args) {
+        this.displayLights = !Boolean.parseBoolean(args);
+    }
+
+    public boolean areLightsEnabled() {
+        return this.displayLights;
     }
 }
