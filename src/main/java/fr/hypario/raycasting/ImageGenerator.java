@@ -104,6 +104,9 @@ public class ImageGenerator {
             return new Color(n.getX(), n.getY(), n.getZ()).add(new Color(1, 1, 1)).mul(0.5);
         } else if (this.world.areLightsEnabled()) {
             return object.getDiffuse();
+        } else if (this.world.areDepthsEnabled()) {
+            double distance = p.length(this.world.getCamera().getPosition());
+            return new Color(distance, distance, distance).mul(0.05).cap();
         }
 
         Color sum = new Color();
@@ -130,9 +133,6 @@ public class ImageGenerator {
             }
         }
 
-        if (this.world.areDepthsEnabled()) {
-            return new Color(depth, depth,depth).mul(1.0 / this.world.getMaxDepth());
-        }
         return result;
     }
 
