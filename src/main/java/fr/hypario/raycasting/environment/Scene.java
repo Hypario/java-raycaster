@@ -29,6 +29,7 @@ public class Scene {
     // debugging
     private boolean displayNormals = false;
     private boolean displayLights = false;
+    private boolean displayDepth = false;
 
     public Scene() {
         this.size = new Integer[2];
@@ -246,5 +247,13 @@ public class Scene {
 
     public boolean areLightsEnabled() {
         return this.displayLights;
+    }
+
+    public void depths(String args) {
+        this.displayDepth = Boolean.parseBoolean(args);
+    }
+
+    public boolean areDepthsEnabled() {
+        return this.displayDepth;
     }
 }

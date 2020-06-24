@@ -84,10 +84,9 @@ public class ImageGenerator {
             IntersectedObject intersectedObject = this.world.intersect(ray, true);
             if (intersectedObject.hasIntersected) {
                 pixelColor = pixelColor.add(this.rayColor(ray, intersectedObject, 0));
+            } else {
+                pixelColor = this.background(x, y);
             }
-        }
-        if (pixelColor.equals(0 ,0, 0)) {
-            return this.background(x, y).cap();
         }
         return pixelColor.cap();
     }
@@ -129,6 +128,10 @@ public class ImageGenerator {
                 Color cp = this.rayColor(new Ray(p, r), intersected, ++depth); // c'
                 result = result.add(object.getSpecular().times(cp)); // c = c + specular * c'
             }
+        }
+
+        if (this.world.areDepthsEnabled()) {
+            return new Color(depth, depth,depth).mul(1.0 / this.world.getMaxDepth());
         }
         return result;
     }
