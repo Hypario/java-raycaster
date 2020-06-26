@@ -1,17 +1,9 @@
 package fr.hypario.raycasting;
 
-import com.aparapi.Kernel;
-import com.aparapi.Range;
-import com.aparapi.device.Device;
-import com.aparapi.internal.kernel.KernelManager;
 import fr.hypario.raycasting.environment.*;
-
 import fr.hypario.raycasting.math.*;
 
-import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 
 public class ImageGenerator {
 
@@ -25,7 +17,7 @@ public class ImageGenerator {
     private Point3D origin;
     private double[] pixelDimension;
 
-    private int samples_per_pixel = 3;
+    private int samples_per_pixel;
 
     ImageGenerator(String sceneFile) {
         this.sceneFile = sceneFile;
@@ -38,19 +30,19 @@ public class ImageGenerator {
         this.image_width = world.getSize()[0]; // the scene shouldn't have a size
         this.image_height = world.getSize()[1]; // later it will be moved to camera
 
-        this.samples_per_pixel = this.world.isAntialiasingEnabled() ? 100 : 1;
+        this.samples_per_pixel = this.world.isAntialiasingEnabled() ? 5 : 1;
 
-        BufferedImage render = new BufferedImage(image_width, image_height, BufferedImage.TYPE_INT_RGB);
+        BufferedImage render = new BufferedImage(this.image_width, this.image_height, BufferedImage.TYPE_INT_RGB);
 
         Camera camera = world.getCamera();
         system = camera.calculateCoordinateSystem();
-        pixelDimension = camera.calculatePixelDimension(image_width, image_height);
+        pixelDimension = camera.calculatePixelDimension(this.image_width, this.image_height);
         origin = camera.getPosition();
 
-        for (int y = 0; y < image_height; y++) {
-            for (int x = 0; x < image_width; x++) {
+        for (int y = 0; y < this.image_height; y++) {
+            for (int x = 0; x < this.image_width; x++) {
                 Color pixelColor = calculatePixelColor(x, y);
-                writeColor(x, image_height - y - 1, render, pixelColor);
+                this.writeColor(x, this.image_height - y - 1, render, pixelColor);
             }
         }
 
