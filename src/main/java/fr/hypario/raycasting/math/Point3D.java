@@ -30,7 +30,10 @@ public class Point3D extends Triplet {
     }
 
     public double length(Point3D p) {
-        return Math.sqrt((p.getX() - this.getX()) * (p.getX() - this.getX()) + (p.getY() - this.getY()) * (p.getY() - this.getY()) + (p.getX() - this.getX()) * (p.getX() - this.getX()));
+        return Math.sqrt((p.getX() - this.getX()) * (p.getX() - this.getX()) +
+                        (p.getY() - this.getY()) * (p.getY() - this.getY()) +
+                        (p.getZ() - this.getZ()) * (p.getZ() - this.getZ())
+        );
     }
 
     @Override

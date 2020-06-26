@@ -83,6 +83,7 @@ public class Window extends Canvas implements Runnable {
     public void update() {}
 
     public void render() {
+        /*
         BufferStrategy bs = this.getBufferStrategy();
 
         if (bs == null) {
@@ -98,9 +99,6 @@ public class Window extends Canvas implements Runnable {
 
         g.dispose();
         bs.show();
-    }
-
-    public static void main(String[] args) {
-
+         */
     }
 }

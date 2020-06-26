@@ -3,7 +3,10 @@ package fr.hypario.raycasting;
 import fr.hypario.raycasting.environment.*;
 import fr.hypario.raycasting.math.*;
 
+import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 public class ImageGenerator {
 
@@ -23,14 +26,14 @@ public class ImageGenerator {
         this.sceneFile = sceneFile;
     }
 
-    public BufferedImage generate() {
+    public void generate() throws IOException {
         SceneReader reader = new SceneReader(this.sceneFile);
         this.world = reader.read();
 
         this.image_width = world.getSize()[0]; // the scene shouldn't have a size
         this.image_height = world.getSize()[1]; // later it will be moved to camera
 
-        this.samples_per_pixel = this.world.isAntialiasingEnabled() ? 5 : 1;
+        this.samples_per_pixel = this.world.isAntialiasingEnabled() ? 10 : 1;
 
         BufferedImage render = new BufferedImage(this.image_width, this.image_height, BufferedImage.TYPE_INT_RGB);
 
@@ -46,7 +49,7 @@ public class ImageGenerator {
             }
         }
 
-        return render;
+        ImageIO.write(render, "PNG", new File(this.world.getOutput()));
     }
 
     private void writeColor(int x, int y, BufferedImage render, Color color) {
@@ -87,8 +90,9 @@ public class ImageGenerator {
         if (this.world.getMaxDepth() == depth) return new Color();
 
         Point3D p = ray.at(intersectedObject.t);
-        Vector3D direction = ray.getDirection();
         BasicObject object = intersectedObject.object;
+        Vector3D direction = ray.getDirection();
+
 
         // debugging tool
         if (this.world.displayNormals()) {

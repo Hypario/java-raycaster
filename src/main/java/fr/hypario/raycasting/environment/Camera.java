@@ -9,6 +9,8 @@ public class Camera {
     private Vector3D up = new Vector3D(0, 1, 0);
     private double fov = 45;
 
+    private final double maxLength = 582;
+
     /**
      * @return pixel pixelDim
      */
@@ -84,5 +86,9 @@ public class Camera {
 
     void setFov(double d) {
         this.fov = d;
+    }
+
+    public double getMaxLength() {
+        return maxLength;
     }
 }
