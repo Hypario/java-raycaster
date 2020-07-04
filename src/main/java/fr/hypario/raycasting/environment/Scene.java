@@ -184,7 +184,7 @@ public class Scene {
             Double t = object.hit(ray, 0.0001, Double.POSITIVE_INFINITY);
 
             if (t != null && (t < intersectedObject.t || !intersectedObject.hasIntersected)) {
-                // if isn't too far or too close from camera
+                // if isn't too far from camera
                 Point3D p = ray.at(t);
                 double distanceFromCamera = this.getCamera().getPosition().length(p);
                 if (distanceFromCamera < this.getCamera().getMaxLength()) {

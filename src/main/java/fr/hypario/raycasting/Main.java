@@ -1,6 +1,5 @@
 package fr.hypario.raycasting;
 
-import java.awt.*;
 import java.io.IOException;
 
 public class Main {
