@@ -11,7 +11,6 @@ public class Scene {
 
     private String output;
     private final Integer[] size;
-    private Integer maxverts;
     private Color ambient = new Color();
     private Color specular = new Color();
     private Color diffuse = new Color();
@@ -117,10 +116,6 @@ public class Scene {
         this.lights.add(new PointLight(pos, col));
     }
 
-    public void maxverts(String args) {
-        this.maxverts = Integer.parseInt(args.trim());
-    }
-
     public void vertex(String args) {
         Double[] data = toDouble(args);
 
@@ -128,14 +123,25 @@ public class Scene {
         this.vertexes.add(pos);
     }
 
+    // alias of vertex
+    public void v(String args) {
+        this.vertex(args);
+    }
+
     public void tri(String args) {
         String[] number = args.split(" ");
-        if (Integer.parseInt(number[0]) < this.maxverts && Integer.parseInt(number[1]) < this.maxverts && Integer.parseInt(number[2]) < this.maxverts) {
-            int a = Integer.parseInt(number[0]);
-            int b = Integer.parseInt(number[1]);
-            int c = Integer.parseInt(number[2]);
+        int maxVerts = this.vertexes.size();
+        int a = Integer.parseInt(number[0]) - 1;
+        int b = Integer.parseInt(number[1]) - 1;
+        int c = Integer.parseInt(number[2]) - 1;
+        if (a < maxVerts && b < maxVerts && c < maxVerts) {
             this.props.add(new Triangle(this.vertexes.get(a), this.vertexes.get(b), this.vertexes.get(c), this.diffuse, this.specular, this.shininess));
         }
+    }
+
+    // alias of triangle, f stands for "face" which is a triangle
+    public void f(String args) {
+        this.tri(args);
     }
 
     // create a sphere
@@ -204,10 +210,6 @@ public class Scene {
 
     public Integer[] getSize() {
         return this.size;
-    }
-
-    public Integer getMaxverts() {
-        return this.maxverts;
     }
 
     public List<Light> getLights() {
